@@ -1,0 +1,83 @@
+
+// ===== CONFIG: edit here =====
+const CONFIG={
+  WHATSAPP_NUMBER:"918903681916", // default contact (Mr Hari); country code, no +
+  TEAM:[
+    {name:"Mr Hari",role:"Digital Marketing Specialist",number:"918903681916",msg:"Hello Mr Hari, I would like to know more about HAPTECH digital services."},
+    {name:"Mr Praveen",role:"Digital Marketing Specialist",number:"919095277703",msg:"Hello Mr Praveen, I would like to know more about HAPTECH digital services."},
+    {name:"Mr Thirumalai Raja",role:"App Creator & Trainer",number:"917825007487",msg:"Hello Mr Thirumalai Raja, I would like to know more about HAPTECH app development and training."},
+    {name:"Mr Aathi",role:"Digital Marketing Trainer",number:"918144945663",msg:"Hello Mr Aathi, I would like to know more about HAPTECH training and services."}
+  ],
+  WHATSAPP_MESSAGE:"Hello HAPTECH, I would like to know more about your digital services.",
+  EMAIL:"", // e.g. "hello@haptech.com"
+  COUNTER_NS:"haptech-black-vercel-app", // visitor counter namespace (any unique name)
+  COUNTER_KEY:"visits",
+  FORM_ENDPOINT:"" // optional: Formspree / Google Forms-compatible URL (POST)
+};
+const SERVICES=[
+["career","📄","ATS Resume Building","Get an ATS-friendly resume designed to improve readability and present your experience professionally.",["ATS-friendly format","Keyword optimization","Professional formatting","Job-specific customization","Content improvement"],"Build My Resume","ATS Resume"],
+["career","🗂️","Portfolio Creation","Create a professional online portfolio that showcases your skills, projects and achievements.",["Personal portfolio websites","Project showcase","About & skills","Certifications","Contact section","Responsive design"],"Create My Portfolio","Portfolio"],
+["career","⭐","Personal Branding","Turn your skills, experience and achievements into a strong professional personal brand.",["Branding strategy","LinkedIn profile improvement","Bio / About section","Social media presence","Professional positioning"],"Build My Brand","Personal Branding"],
+["career","🎓","Internships & Career Opportunities","Discover internship opportunities and practical experiences that help you build your career. We do not guarantee jobs or internships.",["Internship guidance","Opportunity discovery","Profile preparation","Resume support","Career guidance"],"Explore Opportunities","Internship"],
+["marketing","🔍","SEO Services","Improve your visibility on Google and help your website reach the right audience.",["On-page SEO","Keyword research","Technical SEO","Local SEO","SEO content strategy","Website optimization"],"Get SEO Support","SEO"],
+["marketing","🔗","Backlink Generation","Build quality, relevant backlinks to strengthen your website's authority and search visibility. No guaranteed rankings.",["Backlink audit & strategy","Guest posting outreach","Business directory listings","Local citations","Niche-relevant link building","White-hat practices only"],"Build My Backlinks","SEO"],
+["marketing","📣","Digital Promotion","Promote your business, product, service or personal brand across digital platforms.",["Social media promotion","Content promotion","Brand awareness","Campaign planning","Online visibility"],"Promote My Brand","Digital Promotion"],
+["marketing","📱","Social Media Handling","Hand over your pages to us and keep a consistent, professional social media presence.",["Complete page handling","Content planning & calendars","Post creation & captions","Hashtags","Engagement & community replies","Growth strategy"],"Manage My Social Media","Social Media Management"],
+["marketing","🎨","Advertisement Creation","Create professional advertisements that capture attention and communicate your offer.",["Social media ads","Promotional posters","Campaign creatives","Video ad concepts","Ad copy","Banners"],"Create My Ad","Advertisement Creation"],
+["marketing","🎯","Ads Management","Reach the right audience with professionally planned and managed campaigns. Results are not guaranteed.",["Meta, Facebook & Instagram Ads","Google Ads","Campaign setup","Audience targeting","Performance monitoring","Optimization"],"Run My Ads","Ads Management"],
+["business","🏪","Digital Business Setup","Take your business online with the essential digital tools and presence.",["Website / landing page","Google Business Profile guidance","Social media setup","Digital contact systems","Online promotion"],"Take My Business Online","Website/Landing Page"],
+["apps","📱","Custom App Development","Have an idea in mind? We turn it into a customized web or mobile-friendly app built around your business or project.",["Idea-to-app planning","Custom web apps & PWAs","WhatsApp-integrated ordering and enquiry","Admin dashboards","Tamil & English interfaces","Handover and support"],"Build My App","App Development"],
+["apps","🏃","Marathon Automation App","A customized app that automates your marathon or sports event, from registration to results, so you spend less time on manual work.",["Online registration","UPI payment tracking","Participant database & categories","WhatsApp updates to runners","Results and certificates","Features planned around your event"],"Automate My Event","Marathon Automation App"]
+];
+const TABS=[["all","All"],["career","🎓 Career & Personal"],["marketing","📈 Digital Marketing"],["business","🚀 Business Solutions"],["apps","📱 Apps & Automation"]];
+const INTERESTS=["SEO","Backlink Building","Digital Promotion","Portfolio","ATS Resume","Internship","Advertisement Creation","Ads Management","Social Media Management","Personal Branding","Website/Landing Page","App Development","Marathon Automation App","Other"];
+const $=s=>document.querySelector(s)||{style:{},classList:{toggle(){},remove(){}}};
+const card=(ic,t,d,extra="")=>`<div class="card"><div class="ic">${ic}</div><h3>${t}</h3><p style="color:var(--muted);margin:0">${d}</p>${extra}</div>`;
+const fill=(id,arr,fn)=>$(id).innerHTML=arr.map(fn).join("");
+fill("#aboutCards",[["🎓","For Students","Build skills, portfolios, resumes and career opportunities."],["💼","For Professionals","Strengthen your personal brand, resume and professional presence."],["🏢","For Businesses","Promote your brand, reach customers and grow online."]],a=>card(...a));
+function renderSvc(c){fill("#svc",SERVICES.filter(s=>c==="all"||s[0]===c),s=>card(s[1],s[2]+(/Backlink|Handling|App|Marathon/.test(s[2])?'<span class="new">NEW</span>':""),s[3],`<ul>${s[4].map(i=>`<li>${i}</li>`).join("")}</ul><a href="contact.html?i=${encodeURIComponent(s[6])}">${s[5]}</a>`));}
+fill("#tabs",TABS,t=>`<button data-c="${t[0]}" class="${t[0]==="all"?"on":""}">${t[1]}</button>`);
+$("#tabs").onclick=e=>{const c=e.target.dataset.c;if(!c)return;document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b===e.target));renderSvc(c)};
+renderSvc("all");
+{const h=location.hash.slice(1);if(h&&TABS.some(t=>t[0]===h)){renderSvc(h);document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.c===h))}}
+fill("#steps",[["01","Tell Us Your Requirement","Tell us what you need."],["02","We Plan","We understand your goals and recommend the right solution."],["03","We Create","Our team develops your digital asset, campaign or career material."],["04","You Grow","Use your new digital presence to reach customers, employers and opportunities."]],s=>`<div class="card"><div class="step g">${s[0]}</div><h3>${s[1]}</h3><p style="color:var(--muted);margin:0">${s[2]}</p></div>`);
+fill("#who",[["🎓","Students","Build portfolios, resumes and career profiles."],["💼","Job Seekers","Create ATS resumes and professional profiles."],["👨‍💼","Professionals","Strengthen your personal brand and online presence."],["🚀","Startups","Build your digital foundation and visibility."],["🏪","Small Businesses","Promote your business and reach more customers."],["🎨","Creators","Build your brand and digital presence."]],a=>card(...a));
+fill("#bundles",[["Career Starter","For students and job seekers.",["ATS Resume","Professional Bio","Portfolio","LinkedIn Profile Guidance"],"Get Started","ATS Resume"],["Personal Brand Package","For professionals and creators.",["Portfolio Website","Personal Branding","Social Media Setup","Professional Bio"],"Build My Brand","Personal Branding"],["Business Growth Package","For startups and businesses.",["Landing Page","SEO & Backlinks","Social Media Handling","Advertisement Creation","Ads Management"],"Grow My Business","Website/Landing Page"]],b=>`<div class="card"><h3>${b[0]}</h3><p style="color:var(--muted);margin:0">${b[1]}</p><ul>${b[2].map(i=>`<li>${i}</li>`).join("")}</ul><p><b>Request a Quote</b></p><a href="contact.html?i=${encodeURIComponent(b[4])}">${b[3]}</a></div>`);
+fill("#why",["One-stop digital solutions","Affordable solutions","Professional designs","Career-focused services","Business-focused digital marketing","Customized solutions"],w=>`<div class="card"><h3><span class="g">✓</span> ${w}</h3></div>`);
+fill("#team",CONFIG.TEAM,t=>card("💬",t.name,t.role,`<p style="margin:14px 0 0"><a class="btn p" target="_blank" rel="noopener" href="https://wa.me/${t.number}?text=${encodeURIComponent(t.msg)}">Chat on WhatsApp</a></p>`));
+const TEAMWORK=[
+{n:"Mr Thirumalai Raja",r:"App Creator & Trainer",num:"917825007487",links:[],works:[
+{i:"🎓",c:"Education website",t:"Sri Vivekananda English Academy",d:"Website for a Tirunelveli English academy with courses, exam coaching, free demo enquiry and WhatsApp contact.",u:"https://svea-website-pi.vercel.app/"},
+{i:"🪔",c:"Online store",t:"Siththar Khadi Cottage Industries",d:"Catalogue and WhatsApp ordering site for handmade natural fragrances from Tirunelveli, in Tamil and English.",u:"https://siththar-khadi.netlify.app/"},
+{i:"🛒",c:"Local store app",t:"சிட்டை (Sittai)",d:"Tamil app to browse nearby shops, build a cart and send orders to the store on WhatsApp.",u:"https://thirumalaiyogi-dotcom.github.io/Test-app/"},
+{i:"👥",c:"Business app",t:"Staff Manager",d:"Attendance, salary and leave app for shop owners and staff, with selfie and GPS check-in.",u:"https://venerable-swan-776642.netlify.app/"},
+{i:"🛠️",c:"Service app",t:"Local Service Finder",d:"A mobile app to find trusted local service providers near you.",u:"https://wondrous-valkyrie-452c25.netlify.app/"},
+{i:"📖",c:"Cultural initiative website",t:"தமிழ் கீதை (Tamil Geethai)",d:"Bilingual Tamil–English website for a movement teaching the Bhagavad Gita in Tamil, with a 151-song programme, class registration and WhatsApp contact.",u:"https://www.tamilgeethai.com/"}]},
+{n:"Mr Praveen",r:"Digital Marketing Specialist",num:"919095277703",links:[["View Full Portfolio ↗","https://veyelumuthuportfolio.liveblog365.com"],["LinkedIn ↗","https://www.linkedin.com/in/veyelumuthu"],["Email","mailto:veyelumuthun@gmail.com"]],note:"Results are from client projects in Mr Praveen's portfolio. Outcomes vary by business and are not guaranteed.",works:[
+{i:"📈",c:"SEO",t:"Deepika Builtech",sub:"Pre-engineered building company, Chennai",st:["+175% Impressions (62.1K → 171K)","+62.7% Clicks (434 → 706)","812 Quality backlinks"],b:["Multiple pages ranked on page 1","Improved visibility in Google AI Overview","Guest posting, outreach, listings, blogs and regular site audits"]},
+{i:"⚡",c:"Website + SEO",t:"Powergenco",sub:"Diesel generator B2B company, Chennai",st:["1 → 79 Clicks in 3 months","100 → 5.66K Impressions","278 Backlinks"],b:["Website built from scratch on WordPress","Location-based service pages, meta tags and internal linking","CTR 1% → 1.4%, average position 12, DR 0 → 0.8"],u:"https://powergenco.in/"},
+{i:"🎨",c:"Creative",t:"Poster Designs",sub:"RiderSpark Car Care & Sree Shakthi Jute Bags",d:"Daily marketing and festival poster creatives for a premium car care brand and an eco-friendly jute bag brand, keeping a consistent, on-brand identity."}]},
+{n:"Mr Aathi",r:"Digital Marketing Trainer",num:"918144945663",links:[["LinkedIn ↗","https://www.linkedin.com/in/muppidathi-shanmugavel-30a82b34a/"],["Email","mailto:muppidathishanmugavel@gmail.com"]],train:[["200+","students trained in Communication English"],["100+","college students trained in Digital Marketing"],["100+","students trained in Employability Skills"],["1200+","students trained in Disaster Management"]],works:[
+{i:"🏃",c:"Event landing page",t:"Natura's Trust",d:"Marathon & bodybuilding event page with programmes, UPI payment steps, registration form and WhatsApp community.",u:"https://naturastrust.vercel.app/"},
+{i:"🐾",c:"Business website",t:"Bose & Bose Pet Clinic",d:"Veterinary clinic website with services, patient reviews, location and click-to-call booking.",u:"https://boseandbosepetclinic.vercel.app/"},
+{i:"🗂️",c:"Personal portfolio",t:"Muppidathi",d:"A personal portfolio website presenting profile, skills and work.",u:"https://muppidathi.netlify.app/"}]}
+];
+const wc=w=>`<div class="card"><div class="ph" style="font-size:40px;height:90px">${w.i}</div><div class="cat">${w.c}</div><h3>${w.t}</h3>${w.sub?`<p style="margin:0 0 8px;font-weight:600;font-size:14px">${w.sub}</p>`:""}${w.d?`<p style="color:var(--muted);margin:0 0 12px">${w.d}</p>`:""}${w.st?`<div>${w.st.map(x=>`<span class="st">${x}</span>`).join("")}</div>`:""}${w.b?`<ul>${w.b.map(x=>`<li>${x}</li>`).join("")}</ul>`:""}${w.u?`<p style="margin:12px 0 0"><a class="btn p" style="padding:10px 18px;font-size:14px" target="_blank" rel="noopener" href="${w.u}">Visit Website ↗</a></p>`:""}</div>`;
+$("#proj").innerHTML=TEAMWORK.map(p=>`<div style="margin-top:44px"><h3 style="font-size:24px;margin:0">${p.n} <span class="g">· ${p.r}</span></h3>${p.train?`<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">${p.train.map(t=>`<div class="card"><div class="step g">${t[0]}</div><p style="color:var(--muted);margin:0">${t[1]}</p></div>`).join("")}</div>`:""}<div class="grid">${p.works.map(wc).join("")}</div>${p.note?`<p class="note">${p.note}</p>`:""}<div class="cta"><a class="btn p" target="_blank" rel="noopener" href="https://wa.me/${p.num}?text=${encodeURIComponent("Hello "+p.n+", I would like to know more about HAPTECH services.")}">Chat with ${p.n}</a>${p.links.map(l=>`<a class="btn" target="_blank" rel="noopener" href="${l[1]}">${l[0]}</a>`).join("")}</div></div>`).join("");
+// Visitor counter: +1 per browser session (refreshes are not re-counted)
+(async()=>{let seen=false;try{seen=!!sessionStorage.getItem("hv")}catch(_){}
+try{const r=await fetch(`https://api.counterapi.dev/v1/${CONFIG.COUNTER_NS}/${CONFIG.COUNTER_KEY}${seen?"":"/up"}`);const d=await r.json();
+if(typeof d.count==="number"){$("#vc").textContent=d.count.toLocaleString("en-IN");$("#vcw").style.display="block";try{sessionStorage.setItem("hv","1")}catch(_){}}}catch(_){}})();
+$("#interest").innerHTML='<option value="">I\'m interested in…</option>'+INTERESTS.map(i=>`<option>${i}</option>`).join("");
+try{const q=new URLSearchParams(location.search).get("i");if(q)$("#interest").value=q}catch(_){}
+$("#burger").onclick=()=>$("#links").classList.toggle("open");
+$("#links").onclick=()=>$("#links").classList.remove("open");
+document.addEventListener("click",e=>{const a=e.target.closest("[data-i]");if(a)$("#interest").value=a.dataset.i;});
+const waURL=(m)=>"https://wa.me/"+CONFIG.WHATSAPP_NUMBER+"?text="+encodeURIComponent(m||CONFIG.WHATSAPP_MESSAGE);
+document.querySelectorAll("[data-wa]").forEach(a=>{a.addEventListener("click",e=>{if(!CONFIG.WHATSAPP_NUMBER){e.preventDefault();location.href="contact.html";$("#note").textContent="WhatsApp isn't configured yet — please use this form."}else{e.preventDefault();window.open(waURL(),"_blank")}})});
+$("#f").onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));
+const msg=`Hello HAPTECH,\nName: ${d.name}\nEmail: ${d.email}\nMobile: ${d.mobile}\nInterested in: ${d.interest||"-"}\nMessage: ${d.message||"-"}`;
+if(CONFIG.FORM_ENDPOINT){try{await fetch(CONFIG.FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(d)});$("#note").textContent="Thanks! We'll be in touch soon.";e.target.reset();return}catch(_){}}
+if(CONFIG.WHATSAPP_NUMBER){window.open(waURL(msg),"_blank");return}
+if(CONFIG.EMAIL){location.href="mailto:"+CONFIG.EMAIL+"?subject="+encodeURIComponent("HAPTECH Enquiry")+"&body="+encodeURIComponent(msg);return}
+$("#note").textContent="Form received on this page, but no destination is set yet. Add WHATSAPP_NUMBER, EMAIL or FORM_ENDPOINT in CONFIG."};
