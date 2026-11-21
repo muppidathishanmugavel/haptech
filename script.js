@@ -12,7 +12,7 @@ const CONFIG={
   EMAIL:"", // e.g. "hello@haptech.com"
   COUNTER_NS:"haptech-black-vercel-app", // visitor counter namespace (any unique name)
   COUNTER_KEY:"visits",
-  CASHFREE_PAY_URL:"", // paste your Cashfree Payment Link / Payment Form URL here
+  CASHFREE_PAY_URL:"https://cfpe.me/muppidathi", // paste your Cashfree Payment Link / Payment Form URL here
   FORM_ENDPOINT:"" // optional: Formspree / Google Forms-compatible URL (POST)
 };
 const SERVICES=[
