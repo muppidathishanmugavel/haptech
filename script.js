@@ -1,3 +1,4 @@
+
 // ===== CONFIG: edit here =====
 const CONFIG={
   WHATSAPP_NUMBER:"918903681916", // default contact (Mr Hari); country code, no +
@@ -11,6 +12,7 @@ const CONFIG={
   EMAIL:"", // e.g. "hello@haptech.com"
   COUNTER_NS:"haptech-black-vercel-app", // visitor counter namespace (any unique name)
   COUNTER_KEY:"visits",
+  CASHFREE_PAY_URL:"", // paste your Cashfree Payment Link / Payment Form URL here
   FORM_ENDPOINT:"" // optional: Formspree / Google Forms-compatible URL (POST)
 };
 const SERVICES=[
@@ -26,10 +28,11 @@ const SERVICES=[
 ["marketing","🎯","Ads Management","Reach the right audience with professionally planned and managed campaigns. Results are not guaranteed.",["Meta, Facebook & Instagram Ads","Google Ads","Campaign setup","Audience targeting","Performance monitoring","Optimization"],"Run My Ads","Ads Management"],
 ["business","🏪","Digital Business Setup","Take your business online with the essential digital tools and presence.",["Website / landing page","Google Business Profile guidance","Social media setup","Digital contact systems","Online promotion"],"Take My Business Online","Website/Landing Page"],
 ["apps","📱","Custom App Development","Have an idea in mind? We turn it into a customized web or mobile-friendly app built around your business or project.",["Idea-to-app planning","Custom web apps & PWAs","WhatsApp-integrated ordering and enquiry","Admin dashboards","Tamil & English interfaces","Handover and support"],"Build My App","App Development"],
-["apps","🏃","Marathon Automation App","A customized app that automates your marathon or sports event, from registration to results, so you spend less time on manual work.",["Online registration","UPI payment tracking","Participant database & categories","WhatsApp updates to runners","Results and certificates","Features planned around your event"],"Automate My Event","Marathon Automation App"]
+["apps","🏃","Marathon Automation App","A customized app that automates your marathon or sports event, from registration to results, so you spend less time on manual work.",["Online registration","UPI payment tracking","Participant database & categories","WhatsApp updates to runners","Results and certificates","Features planned around your event"],"Automate My Event","Marathon Automation App"],
+["apps","🪙","Digital Gold Savings App","A monthly gold investment app for small gold shops, so customers can save in instalments and you can track every payment. Starts from ₹19,999.",["Customer enrolment","Monthly instalment tracking","Online payments via Cashfree","Shop owner dashboard","Reports","Customized to your shop"],"Get Gold App Quote","Digital Gold App"]
 ];
 const TABS=[["all","All"],["career","🎓 Career & Personal"],["marketing","📈 Digital Marketing"],["business","🚀 Business Solutions"],["apps","📱 Apps & Automation"]];
-const INTERESTS=["SEO","Backlink Building","Digital Promotion","Portfolio","ATS Resume","Internship","Advertisement Creation","Ads Management","Social Media Management","Personal Branding","Website/Landing Page","App Development","Marathon Automation App","Other"];
+const INTERESTS=["SEO","Backlink Building","Digital Promotion","Portfolio","ATS Resume","Internship","Advertisement Creation","Ads Management","Social Media Management","Personal Branding","Website/Landing Page","App Development","Marathon Automation App","Digital Gold App","Event Management Platform","Other"];
 const $=s=>document.querySelector(s)||{style:{},classList:{toggle(){},remove(){}}};
 const card=(ic,t,d,extra="")=>`<div class="card"><div class="ic">${ic}</div><h3>${t}</h3><p style="color:var(--muted);margin:0">${d}</p>${extra}</div>`;
 const fill=(id,arr,fn)=>$(id).innerHTML=arr.map(fn).join("");
@@ -60,7 +63,8 @@ const TEAMWORK=[
 {i:"🏃",c:"Event landing page",t:"Natura's Trust",d:"Marathon & bodybuilding event page with programmes, UPI payment steps, registration form and WhatsApp community.",u:"https://naturastrust.vercel.app/"},
 {i:"🐾",c:"Business website",t:"Bose & Bose Pet Clinic",d:"Veterinary clinic website with services, patient reviews, location and click-to-call booking.",u:"https://boseandbosepetclinic.vercel.app/"},
 {i:"🗂️",c:"Personal portfolio",t:"Muppidathi",d:"A personal portfolio website presenting profile, skills and work.",u:"https://muppidathi.netlify.app/"},
-{i:"🎓",c:"Education consultancy website",t:"PARK International Education",d:"Website for an education consultancy (since 2008) guiding students to MBBS, engineering, nursing and other courses in India and abroad. Course pages, university listings, branch network, WhatsApp enquiry forms and an admissions CRM.",st:["Web Design","Education","Lead Generation"],u:"https://www.parkabroad.com/"}]}
+{i:"🎓",c:"Education consultancy website",t:"PARK International Education",d:"Website for an education consultancy (since 2008) guiding students to MBBS, engineering, nursing and other courses in India and abroad. Course pages, university listings, branch network, WhatsApp enquiry forms and an admissions CRM.",st:["Web Design","Education","Lead Generation"],u:"https://www.parkabroad.com/"},
+{i:"🗓️",c:"Event management platform",t:"EventFlow",d:"A smart digital platform to simplify event management for college events, seminars, workshops, marathons, sports events and cultural programmes.",st:["Online event creation","Participant registration","Online payments","Organiser dashboard"],b:["Registration & payment tracking","Participant management","Easy event sharing"],u:"https://eventflow-platform-eta.vercel.app/"}]}
 ];
 const wc=w=>`<div class="card"><div class="ph" style="font-size:40px;height:90px">${w.i}</div><div class="cat">${w.c}</div><h3>${w.t}</h3>${w.sub?`<p style="margin:0 0 8px;font-weight:600;font-size:14px">${w.sub}</p>`:""}${w.d?`<p style="color:var(--muted);margin:0 0 12px">${w.d}</p>`:""}${w.st?`<div>${w.st.map(x=>`<span class="st">${x}</span>`).join("")}</div>`:""}${w.b?`<ul>${w.b.map(x=>`<li>${x}</li>`).join("")}</ul>`:""}${w.u?`<p style="margin:12px 0 0"><a class="btn p" style="padding:10px 18px;font-size:14px" target="_blank" rel="noopener" href="${w.u}">Visit Website ↗</a></p>`:""}</div>`;
 $("#proj").innerHTML=TEAMWORK.map(p=>`<div style="margin-top:44px"><h3 style="font-size:24px;margin:0">${p.n} <span class="g">· ${p.r}</span></h3>${p.train?`<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">${p.train.map(t=>`<div class="card"><div class="step g">${t[0]}</div><p style="color:var(--muted);margin:0">${t[1]}</p></div>`).join("")}</div>`:""}<div class="grid">${p.works.map(wc).join("")}</div>${p.note?`<p class="note">${p.note}</p>`:""}<div class="cta"><a class="btn p" target="_blank" rel="noopener" href="https://wa.me/${p.num}?text=${encodeURIComponent("Hello "+p.n+", I would like to know more about HAPTECH services.")}">Chat with ${p.n}</a>${p.links.map(l=>`<a class="btn" target="_blank" rel="noopener" href="${l[1]}">${l[0]}</a>`).join("")}</div></div>`).join("");
@@ -75,6 +79,7 @@ $("#links").onclick=()=>$("#links").classList.remove("open");
 document.addEventListener("click",e=>{const a=e.target.closest("[data-i]");if(a)$("#interest").value=a.dataset.i;});
 const waURL=(m)=>"https://wa.me/"+CONFIG.WHATSAPP_NUMBER+"?text="+encodeURIComponent(m||CONFIG.WHATSAPP_MESSAGE);
 document.querySelectorAll("[data-wa]").forEach(a=>{a.addEventListener("click",e=>{if(!CONFIG.WHATSAPP_NUMBER){e.preventDefault();location.href="contact.html";$("#note").textContent="WhatsApp isn't configured yet — please use this form."}else{e.preventDefault();window.open(waURL(),"_blank")}})});
+document.querySelectorAll("[data-pay]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();if(CONFIG.CASHFREE_PAY_URL)window.open(CONFIG.CASHFREE_PAY_URL,"_blank","noopener");else if(CONFIG.WHATSAPP_NUMBER)window.open(waURL("Hello HAPTECH, I would like to make an online payment for my project."),"_blank");else location.href="contact.html"}));
 $("#f").onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));
 const msg=`Hello HAPTECH,\nName: ${d.name}\nEmail: ${d.email}\nMobile: ${d.mobile}\nInterested in: ${d.interest||"-"}\nMessage: ${d.message||"-"}`;
 if(CONFIG.FORM_ENDPOINT){try{await fetch(CONFIG.FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(d)});$("#note").textContent="Thanks! We'll be in touch soon.";e.target.reset();return}catch(_){}}

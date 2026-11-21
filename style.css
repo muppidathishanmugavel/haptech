@@ -65,3 +65,5 @@ details{background:var(--card);border:1px solid var(--line);border-radius:12px;p
 .pg h1{font-size:clamp(30px,6vw,46px);margin:0 0 8px}.pg .sub{color:#b8c4e4;margin:0}
 main>section:nth-of-type(even){background:var(--card)}
 a.card{display:block}
+
+.pr{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}.pr b{white-space:nowrap;color:var(--acc)}.big{font-size:22px;font-weight:800}.nt{font-size:13px;color:var(--muted);margin:10px 0 0}
